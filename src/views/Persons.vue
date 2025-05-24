@@ -44,7 +44,6 @@ export default {
       ]
     }
   },
-   */
   methods: {
     getAvatar (person) {
       if (person.gender === 'MALE') {
@@ -52,6 +51,21 @@ export default {
       } else if (person.gender === 'FEMALE') {
         return require('../assets/female.png')
       }
+    }
+  },
+   */
+  methods: {
+    addPerson (personLocation) {
+      const endpoint = process.env.VUE_APP_BACKEND_BASE_URL + personLocation
+      const requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      }
+
+      fetch(endpoint, requestOptions)
+        .then(response => response.json())
+        .then(person => this.persons.push(person))
+        .catch(error => console.log('error', error))
     }
   },
   mounted () {
